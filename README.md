@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/t9md/atom-vim-mode-plus-jasmine-increase-focus.svg?branch=master)](https://travis-ci.org/t9md/atom-vim-mode-plus-jasmine-increase-focus)
+
 # vim-mode-plus-jasmine-increase-focus
 
 This is operator plugin for [vim-mode-plus](https://atom.io/packages/vim-mode-plus).  
