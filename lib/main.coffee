@@ -1,6 +1,10 @@
 {CompositeDisposable} = require 'atom'
 
 Config =
+  autoSave:
+    description: 'save buffer when increased/decreased'
+    type: 'boolean'
+    default: false
   focusTexts:
     description: 'comma separated focus text which is prefixed to `it` and `describe`'
     type: 'array'

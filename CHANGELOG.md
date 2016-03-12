@@ -1,3 +1,6 @@
+## 0.2.0
+- Add `autoSave` setting.
+
 ## 0.1.1
 - Add spec, travis-CI
 

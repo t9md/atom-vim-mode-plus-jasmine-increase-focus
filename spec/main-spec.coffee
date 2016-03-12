@@ -80,3 +80,28 @@ describe "vim-mode-plus-jasmine-increase-focus", ->
         ensureRowText '-', '  ffit "test", ->'
         ensureRowText '-', '  fit "test", ->'
         ensureRowText '-', '  it "test", ->'
+
+    describe "autoSave settings", ->
+      [ensureRowText, saved] = []
+      beforeEach ->
+        cursor = [23, 13]
+        set {cursor}
+        saved = 0
+        ensureRowText = getEnsureRowText(20, cursor)
+        editor.onDidSave -> saved++
+
+      it "disabled by default", ->
+        ensureRowText '+', '  fit "test", ->'
+        expect(editor.isModified()).toBe(true)
+        ensureRowText '-', '  it "test", ->'
+        expect(saved).toBe(0)
+        expect(editor.isModified()).toBe(false)
+
+      it "autoSave on increase/decrease", ->
+        atom.config.set('vim-mode-plus-jasmine-increase-focus.autoSave', true)
+        ensureRowText '+', '  fit "test", ->'
+        expect(saved).toBe(1)
+        expect(editor.isModified()).toBe(false)
+        ensureRowText '-', '  it "test", ->'
+        expect(saved).toBe(2)
+        expect(editor.isModified()).toBe(false)

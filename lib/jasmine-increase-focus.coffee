@@ -63,6 +63,8 @@ class JasmineIncreaseFocus extends Operator
     @mutateSpecSection(cursor)
     cursor.setBufferPosition(originalPoint)
     @activateMode('normal')
+    if atom.config.get('vim-mode-plus-jasmine-increase-focus.autoSave')
+      @editor.save()
 
 class JasmineDecreaseFocus extends JasmineIncreaseFocus
   requireTarget: false
