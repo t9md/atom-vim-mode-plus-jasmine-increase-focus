@@ -1,3 +1,6 @@
+## 0.2.1
+- Update to follow `vim-mode-plus` change.
+
 ## 0.2.0
 - Add `autoSave` setting.
 

@@ -5,10 +5,8 @@ requireFrom = (pack, path) ->
 Operator = requireFrom('vim-mode-plus', 'base').getClass('Operator')
 {getCodeFoldRowRangesContainesForRow} = requireFrom('vim-mode-plus', 'utils')
 
-CommandPrefix = 'vim-mode-plus-user'
-
 class JasmineIncreaseFocus extends Operator
-  @commandPrefix: CommandPrefix
+  @commandPrefix: 'vim-mode-plus-user'
   requireTarget: false
   direction: +1
 
@@ -52,7 +50,7 @@ class JasmineIncreaseFocus extends Operator
         return if /\S/.test(preceedingText)
 
         stop()
-        @flash(range) if @needFlash()
+        @flashIfNecessary(range)
         replace(@getNewText(match[1..2]...))
         replaced = true
       replaced
