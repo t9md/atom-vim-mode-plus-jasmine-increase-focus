@@ -1,3 +1,5 @@
+{Range} = require 'atom'
+
 requireFrom = (pack, path) ->
   packPath = atom.packages.resolvePackagePath(pack)
   require "#{packPath}/lib/#{path}"
@@ -14,6 +16,7 @@ class JasmineIncreaseFocus extends Operator
     focusTexts = atom.config.get('vim-mode-plus-jasmine-increase-focus.focusTexts')
     focusTexts.unshift('')
     @focusTexts = focusTexts
+    super
 
   getFocusText: (index) ->
     lastIndex = @focusTexts.length - 1
@@ -29,43 +32,32 @@ class JasmineIncreaseFocus extends Operator
     index = 0 if (index is -1)
     @getFocusText(index + @getCount() * @direction) + sectionName
 
-  eachFoldStartRow: (cursor, fn) ->
-    row = cursor.getBufferRow()
-    foldRowRanges = getCodeFoldRowRangesContainesForRow(@editor, row)
-    foldStartRows = foldRowRanges.reverse().map((rowRange) -> rowRange[0])
-    for row in foldStartRows
-      if fn(row)
-        break
-
   mutateSpecSection: (cursor) ->
-    sectionPattern = /(f+|x)*(describe|it)/
-    @eachFoldStartRow cursor, (row) =>
+    sectionPattern = /\b(f+|x)*(describe|it)\b/
+    newRange = null
+
+    foldStartRows = getCodeFoldRowRangesContainesForRow(@editor, cursor.getBufferRow())
+        .reverse()
+        .map((rowRange) -> rowRange[0])
+
+    for row in foldStartRows
       scanRange = @editor.bufferRangeForBufferRow(row)
-      replaced = false
-      @editor.scanInBufferRange sectionPattern, scanRange, ({matchText, range, match, replace, stop}) =>
-        {row, column} = range.start
-
+      @editor.scanInBufferRange sectionPattern, scanRange, ({range, match, replace}) =>
         # Ignore match in middle of word like `it` in `editor`.
-        preceedingText = @editor.getTextInBufferRange([[row, 0], [row, column]])
-        return if /\S/.test(preceedingText)
+        # Range.fromPointWithDelta(range.start, 0, )
+        return if /\S/.test(@editor.getTextInBufferRange([[range.start.row, 0], range.start]))
+        newRange = replace(@getNewText(match[1..2]...))
+        @flashIfNecessary(newRange)
 
-        stop()
-        @flashIfNecessary(range)
-        replace(@getNewText(match[1..2]...))
-        replaced = true
-      replaced
+      break if newRange?
 
   execute: ->
-    cursor = @editor.getLastCursor()
-    originalPoint = cursor.getBufferPosition()
-    @mutateSpecSection(cursor)
-    cursor.setBufferPosition(originalPoint)
+    @mutateSpecSection(@editor.getLastCursor())
     @activateMode('normal')
     if atom.config.get('vim-mode-plus-jasmine-increase-focus.autoSave')
       @editor.save()
 
 class JasmineDecreaseFocus extends JasmineIncreaseFocus
-  requireTarget: false
   direction: -1
 
 module.exports = {JasmineIncreaseFocus, JasmineDecreaseFocus}

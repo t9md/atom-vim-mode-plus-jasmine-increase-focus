@@ -1,4 +1,7 @@
-## 0.2.1
+## 0.2.3
+- Improve: cleanup, and make flash work again.
+
+## 0.2.2
 - Update to follow `vim-mode-plus` change.
 
 ## 0.2.0

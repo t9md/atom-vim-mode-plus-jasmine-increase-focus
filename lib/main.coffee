@@ -23,12 +23,9 @@ module.exports =
     @subscriptions = {}
     cachedTags = null
 
-  subscribe: (args...) ->
-    @subscriptions.add args...
-
   consumeVim: ->
     {JasmineIncreaseFocus, JasmineDecreaseFocus} = require "./jasmine-increase-focus"
-    @subscribe(
-      JasmineIncreaseFocus.registerCommand(),
+    @subscriptions.add(
+      JasmineIncreaseFocus.registerCommand()
       JasmineDecreaseFocus.registerCommand()
     )
