@@ -36,7 +36,8 @@ class JasmineIncreaseFocus extends Operator
     sectionPattern = /\b(f+|x)*(describe|it)\b/
     newRange = null
 
-    foldStartRows = getCodeFoldRowRangesContainesForRow(@editor, cursor.getBufferRow())
+    foldStartRows =
+      getCodeFoldRowRangesContainesForRow(@editor, cursor.getBufferRow())
         .reverse()
         .map((rowRange) -> rowRange[0])
 
