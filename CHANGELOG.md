@@ -1,3 +1,6 @@
+## 0.2.4
+- Minor fix
+
 ## 0.2.3
 - Improve: cleanup, and make flash work again.
 
