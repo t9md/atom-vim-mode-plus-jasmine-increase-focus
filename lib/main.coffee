@@ -31,6 +31,6 @@ module.exports =
 
     commandPrefix = 'vim-mode-plus-user'
     @subscriptions.add(
-      registerCommandFromSpec({name: 'JasmineIncreaseFocus', commandPrefix, getClass})
-      registerCommandFromSpec({name: 'JasmineDecreaseFocus', commandPrefix, getClass})
+      registerCommandFromSpec('JasmineIncreaseFocus', {commandPrefix, getClass})
+      registerCommandFromSpec('JasmineDecreaseFocus', {commandPrefix, getClass})
     )
