@@ -4,7 +4,7 @@ requireFrom = (pack, path) ->
 
 {getVimState} = requireFrom 'vim-mode-plus', 'spec/spec-helper'
 
-activatePackageViaActivationCommand = (name, fn) ->
+activatePackageByActivationCommand = (name, fn) ->
   activationPromise = atom.packages.activatePackage(name)
   fn()
   activationPromise
@@ -19,10 +19,8 @@ describe "vim-mode-plus-jasmine-increase-focus", ->
         '-': 'vim-mode-plus-user:jasmine-decrease-focus'
       , 100
 
-    activationPromise = null
-
     waitsForPromise ->
-      activatePackageViaActivationCommand 'vim-mode-plus-jasmine-increase-focus', ->
+      activatePackageByActivationCommand 'vim-mode-plus-jasmine-increase-focus', ->
         atom.workspace.open().then (editor) ->
           atom.commands.dispatch(editor.element, "vim-mode-plus-user:jasmine-increase-focus")
 
