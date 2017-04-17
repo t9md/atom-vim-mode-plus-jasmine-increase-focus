@@ -25,7 +25,7 @@ module.exports =
 
   consumeVim: ({registerCommandFromSpec}) ->
     registries = null
-    getClass = (name) =>
+    getClass = (name) ->
       registries ?= require "./jasmine-increase-focus"
       registries[name]
 
