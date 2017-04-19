@@ -1,3 +1,6 @@
+## 0.3.0
+- Use `activationCommands` to reduce startup time of atom.
+
 ## 0.2.4
 - Minor fix
 
