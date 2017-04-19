@@ -23,9 +23,14 @@ module.exports =
     @subscriptions = {}
     cachedTags = null
 
-  consumeVim: ->
-    {JasmineIncreaseFocus, JasmineDecreaseFocus} = require "./jasmine-increase-focus"
+  consumeVim: ({registerCommandFromSpec}) ->
+    registries = null
+    getClass = (name) ->
+      registries ?= require "./jasmine-increase-focus"
+      registries[name]
+
+    commandPrefix = 'vim-mode-plus-user'
     @subscriptions.add(
-      JasmineIncreaseFocus.registerCommand()
-      JasmineDecreaseFocus.registerCommand()
+      registerCommandFromSpec('JasmineIncreaseFocus', {commandPrefix, getClass})
+      registerCommandFromSpec('JasmineDecreaseFocus', {commandPrefix, getClass})
     )

@@ -4,6 +4,11 @@ requireFrom = (pack, path) ->
 
 {getVimState} = requireFrom 'vim-mode-plus', 'spec/spec-helper'
 
+activatePackageByActivationCommand = (name, fn) ->
+  activationPromise = atom.packages.activatePackage(name)
+  fn()
+  activationPromise
+
 describe "vim-mode-plus-jasmine-increase-focus", ->
   [set, ensure, keystroke, editor, editorElement, vimState] = []
 
@@ -15,7 +20,9 @@ describe "vim-mode-plus-jasmine-increase-focus", ->
       , 100
 
     waitsForPromise ->
-      atom.packages.activatePackage('vim-mode-plus-jasmine-increase-focus')
+      activatePackageByActivationCommand 'vim-mode-plus-jasmine-increase-focus', ->
+        atom.workspace.open().then (editor) ->
+          atom.commands.dispatch(editor.element, "vim-mode-plus-user:jasmine-increase-focus")
 
   describe "increase/decrease", ->
     pack = 'language-coffee-script'

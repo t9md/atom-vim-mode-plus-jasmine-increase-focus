@@ -8,7 +8,6 @@ Operator = requireFrom('vim-mode-plus', 'base').getClass('Operator')
 {getCodeFoldRowRangesContainesForRow} = requireFrom('vim-mode-plus', 'utils')
 
 class JasmineIncreaseFocus extends Operator
-  @commandPrefix: 'vim-mode-plus-user'
   requireTarget: false
   direction: +1
 
