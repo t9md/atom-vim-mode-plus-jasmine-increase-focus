@@ -4,7 +4,7 @@
 
 This is operator plugin for [vim-mode-plus](https://atom.io/packages/vim-mode-plus).  
 
-Increase, decrease focus of current jasmine spec section you are in.  
+Increase, decrease focus of current jasmine or rspec spec section you are in.  
 No need to move cursor to header line.  
 Of course, this is operator, you can repat it with `.` command.  
 
