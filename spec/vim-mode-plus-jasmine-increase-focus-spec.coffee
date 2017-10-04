@@ -105,10 +105,17 @@ describe "vim-mode-plus-jasmine-increase-focus", ->
         expect(editor.isModified()).toBe(false)
 
       it "autoSave on increase/decrease", ->
-        atom.config.set('vim-mode-plus-jasmine-increase-focus.autoSave', true)
-        ensureRowText '+', '  fit "test", ->'
-        expect(saved).toBe(1)
-        expect(editor.isModified()).toBe(false)
-        ensureRowText '-', '  it "test", ->'
-        expect(saved).toBe(2)
-        expect(editor.isModified()).toBe(false)
+        runs ->
+          atom.config.set('vim-mode-plus-jasmine-increase-focus.autoSave', true)
+          ensureRowText '+', '  fit "test", ->'
+          expect(editor.isModified()).toBe(true)
+        waitsFor ->
+          saved is 1
+        runs ->
+          expect(editor.isModified()).toBe(false)
+          ensureRowText '-', '  it "test", ->'
+          expect(editor.isModified()).toBe(true)
+        waitsFor ->
+          saved is 2
+        runs ->
+          expect(editor.isModified()).toBe(false)
