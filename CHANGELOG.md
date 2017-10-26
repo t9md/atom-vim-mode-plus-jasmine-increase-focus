@@ -1,3 +1,8 @@
+## 0.4.1: Must release when vmp 1.13.0 is out
+- Maintenance:
+  - No longer use `requireTarget` prop to conform upstream(vmp) changes.
+  - Instead use `target = "Empty"`
+
 ## 0.4.0:
 - Maintenance:
   - Convert Coffee-to-JS
