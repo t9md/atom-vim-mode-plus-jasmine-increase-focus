@@ -1,3 +1,6 @@
+## 0.4.2:
+- Just version patch number incremented by publish mistake.
+
 ## 0.4.1: Must release when vmp 1.13.0 is out
 - Maintenance:
   - No longer use `requireTarget` prop to conform upstream(vmp) changes.
