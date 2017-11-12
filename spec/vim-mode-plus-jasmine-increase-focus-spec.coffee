@@ -10,7 +10,7 @@ activatePackageByActivationCommand = (name, fn) ->
   activationPromise
 
 describe "vim-mode-plus-jasmine-increase-focus", ->
-  [set, ensure, keystroke, editor, editorElement, vimState] = []
+  [set, ensure, editor, editorElement, vimState] = []
 
   beforeEach ->
     atom.keymaps.add "test",
@@ -28,10 +28,10 @@ describe "vim-mode-plus-jasmine-increase-focus", ->
     pack = 'language-coffee-script'
 
     getEnsureRowText = (row, cursor) ->
-      (_keystroke, rowText) ->
-        keystroke _keystroke
-        expect(editor.lineTextForBufferRow(row)).toBe rowText
-        ensure cursor: cursor
+      (keystroke, rowText) ->
+        ensure keystroke
+        expect(editor.lineTextForBufferRow(row)).toBe(rowText)
+        ensure null, cursor: cursor
 
     beforeEach ->
       waitsForPromise ->
@@ -40,7 +40,7 @@ describe "vim-mode-plus-jasmine-increase-focus", ->
       getVimState 'sample.coffee', (state, vim) ->
         vimState = state
         {editor, editorElement} = state
-        {set, ensure, keystroke} = vim
+        {set, ensure} = vim
 
     afterEach ->
       atom.packages.deactivatePackage(pack)
